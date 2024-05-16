@@ -11,7 +11,8 @@ namespace CashFlow.Api.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterExpenseJson), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
         public IActionResult Register([FromBody] RequestExpenseJson request)
         {
             try
@@ -23,10 +24,14 @@ namespace CashFlow.Api.Controllers
                 return Created("", response);
             } catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                var errorResponse = new ResponseErrorJson(ex.Message);
+
+                return BadRequest(errorResponse);
             } catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Unknor error");
+                var errorResponse = new ResponseErrorJson("Unknown error");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
             }
         }
     }
