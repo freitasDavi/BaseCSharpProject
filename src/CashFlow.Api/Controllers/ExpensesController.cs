@@ -16,24 +16,11 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
         public IActionResult Register([FromBody] RequestExpenseJson request)
         {
-            try
-            {
-                var useCase = new RegisterExpenseUseCase();
+            var useCase = new RegisterExpenseUseCase();
 
-                var response = useCase.Execute(request);
+            var response = useCase.Execute(request);
 
-                return Created("", response);
-            } catch (ErrorOnValidationException ex)
-            {
-                var errorResponse = new ResponseErrorJson(ex.Errors);
-
-                return BadRequest(errorResponse);
-            } catch
-            {
-                var errorResponse = new ResponseErrorJson("Unknown error");
-
-                return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-            }
+            return Created("", response);
         }
     }
 }
