@@ -1,6 +1,7 @@
 ﻿using CashFlow.Communication.Enums;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
+using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Register
 {
@@ -23,7 +24,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
             {
                 var errors = result.Errors.Select(x => x.ErrorMessage).ToList();
 
-                throw new ArgumentException("fuck");
+                throw new ErrorOnValidationException(errors);
             }
         }
     }
