@@ -20,9 +20,9 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(typeof(ResponseRegisterExpenseJson), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
-        public IActionResult Register([FromBody] RequestExpenseJson request)
+        public async Task<IActionResult> Register([FromBody] RequestExpenseJson request)
         {
-            var response = _registerExpense.Execute(request);
+            var response = await _registerExpense.Execute(request);
 
             return Created("", response);
         }
