@@ -8,13 +8,13 @@ namespace CashFlow.Application.UseCases.Expenses.GetById
 {
     public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
     {
-        public GetExpenseByIdUseCase(IExpensesRepository repository, IMapper mapper)
+        public GetExpenseByIdUseCase(IExpensesReadOnlyRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        private readonly IExpensesRepository _repository;
+        private readonly IExpensesReadOnlyRepository _repository;
         private readonly IMapper _mapper;
 
         public async Task<ResponseExpenseJson> Execute(long id)
