@@ -30,7 +30,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            return assembly.GetManifestResourceStream($"CashFlow.Application.UseCases.Expense.Reports.Pdf.Fonts.{fontName}.ttf");
+            return assembly.GetManifestResourceStream($"CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts.{fontName}.ttf");
         }
     }
 }
