@@ -28,11 +28,11 @@ namespace CashFlow.Api.Controllers
 
             return NoContent();
         }
-        [HttpPost("pdf")]
+        [HttpGet("pdf")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetPdf(
-            [FromHeader] DateOnly month,
+            [FromQuery] DateOnly month,
             [FromServices] IGenerateExpensesPdfReportUseCase useCase)
         {
             byte[] file = await useCase.Execute(month);
