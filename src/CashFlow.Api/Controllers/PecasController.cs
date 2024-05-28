@@ -1,5 +1,6 @@
 ﻿using CashFlow.Application.UseCases.Pecas;
 using CashFlow.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace CashFlow.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PecasController : ControllerBase
     {
         private readonly IPecasService _pecasService;
@@ -37,7 +39,7 @@ namespace CashFlow.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Peca), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetOne([FromRoute] int id)
+        public async Task<IActionResult> GetOne([FromRoute] Guid id)
         {
             var peca = await _pecasService.GetById(id);
 
@@ -48,7 +50,7 @@ namespace CashFlow.Api.Controllers
         [Route("{id}/InserirValor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> InserirValor(
-            [FromRoute] int id,
+            [FromRoute] Guid id,
             [FromBody] ValorPeca request)
         {
             await _pecasService.InsertValor(id, request);
@@ -60,7 +62,7 @@ namespace CashFlow.Api.Controllers
         [Route("{id}/InserirValores")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> InserirValores(
-            [FromRoute] int id,
+            [FromRoute] Guid id,
             [FromBody] List<ValorPeca> request)
         {
             await _pecasService.InsertValores(id, request);
