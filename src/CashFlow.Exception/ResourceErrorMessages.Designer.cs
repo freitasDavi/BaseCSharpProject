@@ -113,5 +113,23 @@ namespace CashFlow.Exception {
                 return ResourceManager.GetString("UNKNOW_ERROR", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User already exists.
+        /// </summary>
+        public static string USER_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("USER_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User not found..
+        /// </summary>
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }
