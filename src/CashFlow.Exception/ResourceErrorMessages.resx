@@ -135,4 +135,10 @@
   <data name="UNKNOW_ERROR" xml:space="preserve">
     <value>Unknow Error</value>
   </data>
+  <data name="USER_ALREADY_EXISTS" xml:space="preserve">
+    <value>User already exists</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
 </root>

@@ -135,4 +135,10 @@
   <data name="UNKNOW_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="USER_ALREADY_EXISTS" xml:space="preserve">
+    <value>O usuário já existe.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>O usuário não encontrado.</value>
+  </data>
 </root>
