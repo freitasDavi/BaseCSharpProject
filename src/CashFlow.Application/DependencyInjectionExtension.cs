@@ -6,6 +6,8 @@ using CashFlow.Application.UseCases.Expenses.Register;
 using CashFlow.Application.UseCases.Expenses.Reports.Excel;
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf;
 using CashFlow.Application.UseCases.Expenses.Update;
+using CashFlow.Application.UseCases.Orcamentos;
+using CashFlow.Application.UseCases.Orcamentos.Itens;
 using CashFlow.Application.UseCases.Pecas;
 using CashFlow.Application.UseCases.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +40,8 @@ namespace CashFlow.Application
             
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IPecasService, PecasService>();
+            services.AddScoped<IOrcamentoService, OrcamentoService>();
+            services.AddScoped<IItensOrcamentoService, ItensOrcamentoService>();
         }
     }
 }

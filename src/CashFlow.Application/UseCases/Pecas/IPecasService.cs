@@ -4,11 +4,11 @@ namespace CashFlow.Application.UseCases.Pecas
 {
     public interface IPecasService
     {
-        Task<int> Create(Peca request);
-        Task Update(int id, Peca request);
+        Task<Guid> Create(Peca request);
+        Task Update(Guid id, Peca request);
         Task<List<Peca>> GetAll();
-        Task<Peca> GetById(int id);
-        Task InsertValores(int codigoPeca, List<ValorPeca> valorPecas);
-        Task InsertValor(int codigoPeca, ValorPeca valorPeca);
+        Task<Peca> GetById(Guid Guid);
+        Task InsertValores(Guid codigoPeca, List<ValorPeca> valorPecas);
+        Task InsertValor(Guid codigoPeca, ValorPeca valorPeca);
     }
 }

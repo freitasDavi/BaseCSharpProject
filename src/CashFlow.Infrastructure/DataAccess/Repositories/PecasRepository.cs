@@ -11,8 +11,9 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         {
             _db = db;
         }
-        public async Task<int> Create(Peca request)
+        public async Task<Guid> Create(Peca request)
         {
+            request.Id = Guid.NewGuid();
             await _db.Pecas.AddAsync(request);
 
             return request.Id;
@@ -23,13 +24,14 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             return await _db.Pecas.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Peca?> GetById(int id)
+        public async Task<Peca?> GetById(Guid id)
         {
             return await _db.Pecas.AsNoTracking().Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task InsertValor(ValorPeca valorPeca)
         {
+            valorPeca.Id = Guid.NewGuid();
             await _db.ValoresPecas.AddAsync(valorPeca);
         }
 
@@ -41,6 +43,11 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         public void Update(Peca request)
         {
             _db.Pecas.Update(request);
+        }
+
+        public async Task<List<ValorPeca>> GetValoresPeca(Guid codigoPeca)
+        {
+            return await _db.ValoresPecas.Where(vp => vp.CodigoPeca == codigoPeca).ToListAsync();
         }
     }
 }

@@ -10,6 +10,9 @@ namespace CashFlow.Infrastructure.DataAccess
         public DbSet<User> Users { get; set; }  
         public DbSet<Peca> Pecas { get; set; }
         public DbSet<ValorPeca> ValoresPecas { get; set; }
+        public DbSet<Orcamento> Orcamentos { get; set; }
+        public DbSet<ItemOrcamento> ItensOrcamentos { get; set; }
+        public DbSet<ItemOrcamentoValor> ItensOrcamentoValores { get; set; }
 
         public CashFlowDbContext(DbContextOptions options) : base(options) { }
 
@@ -17,6 +20,9 @@ namespace CashFlow.Infrastructure.DataAccess
         {
             modelBuilder.ApplyConfiguration(new PecasMap());
             modelBuilder.ApplyConfiguration(new ValoresPecasMap()); 
+            modelBuilder.ApplyConfiguration(new OrcamentosMap());
+            modelBuilder.ApplyConfiguration(new ItensOrcamentoMap()); 
+            modelBuilder.ApplyConfiguration(new ItensOrcamentoValoresMap());
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CashFlow.Application.UseCases.Pecas
             _repository = repository;
             _unitOfWork = unitOfWork;
         }
-        public async Task<int> Create(Peca request)
+        public async Task<Guid> Create(Peca request)
         {
             var id = await _repository.Create(request);
             await _unitOfWork.Commit();
@@ -29,14 +29,14 @@ namespace CashFlow.Application.UseCases.Pecas
             return await _repository.GetAll();
         }
 
-        public async Task<Peca> GetById(int id)
+        public async Task<Peca> GetById(Guid id)
         {
             var peca = await _repository.GetById(id);
 
             return peca is null ? throw new NotFoundException("Peça") : peca;
         }
 
-        public async Task InsertValor(int codigoPeca, ValorPeca valorPeca)
+        public async Task InsertValor(Guid codigoPeca, ValorPeca valorPeca)
         {
             valorPeca.CodigoPeca = codigoPeca;
 
@@ -44,7 +44,7 @@ namespace CashFlow.Application.UseCases.Pecas
             await _unitOfWork.Commit();
         }
 
-        public async Task InsertValores(int codigoPeca, List<ValorPeca> valorPecas)
+        public async Task InsertValores(Guid codigoPeca, List<ValorPeca> valorPecas)
         {
             valorPecas.ForEach(vl => vl.CodigoPeca = codigoPeca);
 
@@ -55,7 +55,7 @@ namespace CashFlow.Application.UseCases.Pecas
             await _unitOfWork.Commit();
         }
 
-        public Task Update(int id, Peca request)
+        public Task Update(Guid id, Peca request)
         {
             throw new NotImplementedException();
         }

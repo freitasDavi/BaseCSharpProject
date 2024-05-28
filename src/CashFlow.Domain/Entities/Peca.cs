@@ -2,7 +2,7 @@
 
 namespace CashFlow.Domain.Entities
 {
-    public class Peca : BaseEntity
+    public class Peca : BaseEntityGuid
     {
         public EnumTamanhoPeca TamanhoPeca { get; set; }
         public string Descricao { get; set; } = string.Empty;
