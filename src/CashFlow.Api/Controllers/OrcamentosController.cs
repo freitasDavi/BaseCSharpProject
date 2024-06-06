@@ -1,5 +1,6 @@
 ﻿using CashFlow.Application.UseCases.Orcamentos;
 using CashFlow.Application.UseCases.Orcamentos.Itens;
+using CashFlow.Communication.Requests;
 using CashFlow.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace CashFlow.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Guid),StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create([FromBody] Orcamento request)
@@ -28,7 +29,7 @@ namespace CashFlow.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<Orcamento>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<Orcamento>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
         {
@@ -52,7 +53,9 @@ namespace CashFlow.Api.Controllers
             [FromBody] ItemOrcamento request,
             [FromServices] IItensOrcamentoService service)
         {
-            return Created("", await service.Create(request));
+            var valores = await service.Create(request);
+
+            return Created("", valores);
         }
 
         [HttpGet]
@@ -63,6 +66,28 @@ namespace CashFlow.Api.Controllers
             [FromServices] IItensOrcamentoService service)
         {
             return Ok(await service.GetItens(id));
+        }
+
+        [HttpGet]
+        [Route("itens/{id}/valores")]
+        [ProducesResponseType(typeof(List<ItemOrcamentoValor>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetValoresItemOrcamento(
+            [FromRoute] Guid id,
+            [FromServices] IItensOrcamentoService service)
+        {
+            return Ok(await service.GetValoresItemOrcamento(id));
+        }
+
+        [HttpPut]
+        [Route("{id}/itens")]
+        public async Task<IActionResult> UpdateItemOrcamento(
+            [FromRoute] Guid id,
+            [FromBody] UpdateItemOrcamentoRequest request,
+            [FromServices] IItensOrcamentoService service)
+        {
+            await service.UpdateItemOrcamento(id, request);
+
+            return Ok();
         }
     }
 }

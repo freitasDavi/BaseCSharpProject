@@ -36,5 +36,29 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             item.Id = Guid.NewGuid();
             await _dbContext.ItensOrcamentoValores.AddAsync(item);
         }
+
+        public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItem)
+        {
+            return await _dbContext.ItensOrcamentoValores.AsNoTracking().Where(iov => iov.CodigoItemOrcamento == codigoItem).ToListAsync();
+        }
+
+        public async Task<ItemOrcamento?> GetItemOrcamentoEValores(Guid codigoItem)
+        {
+            var itens = await _dbContext.ItensOrcamentos.Where(io => io.Id == codigoItem).FirstOrDefaultAsync();
+
+            return itens;
+        }
+
+        public async Task RemoveItemsParaInsercao(Guid codigoItem)
+        {
+            var valoresParaRemover = await _dbContext.ItensOrcamentoValores.Where(iol => iol.CodigoItemOrcamento == codigoItem).ToListAsync();
+            
+            _dbContext.ItensOrcamentoValores.RemoveRange(valoresParaRemover);
+        }
+
+        public void UpdateItemOrcamento(ItemOrcamento itemOrcamento)
+        {
+            _dbContext.ItensOrcamentos.Update(itemOrcamento);
+        }
     }
 }

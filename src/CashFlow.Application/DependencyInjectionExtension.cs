@@ -1,4 +1,5 @@
 ﻿using CashFlow.Application.AutoMapper;
+using CashFlow.Application.UseCases.Clientes;
 using CashFlow.Application.UseCases.Expenses.Delete;
 using CashFlow.Application.UseCases.Expenses.GetAll;
 using CashFlow.Application.UseCases.Expenses.GetById;
@@ -42,6 +43,7 @@ namespace CashFlow.Application
             services.AddScoped<IPecasService, PecasService>();
             services.AddScoped<IOrcamentoService, OrcamentoService>();
             services.AddScoped<IItensOrcamentoService, ItensOrcamentoService>();
+            services.AddScoped<IClientesService, ClientesService>();
         }
     }
 }

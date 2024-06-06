@@ -1,4 +1,5 @@
 ﻿using CashFlow.Domain.Repositories;
+using CashFlow.Domain.Repositories.Clientes;
 using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Domain.Repositories.Orcamentos;
 using CashFlow.Domain.Repositories.Pecas;
@@ -28,6 +29,7 @@ namespace CashFlow.Infrastructure
             services.AddScoped<IPecasRepository, PecasRepository>();  
             services.AddScoped<IOrcamentosRepository, OrcamentosRepository>();  
             services.AddScoped<IItensOrcamentoRepository, ItensOrcamentoRepository>();  
+            services.AddScoped<IClientesRepository, ClientesRepository>();  
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration) 

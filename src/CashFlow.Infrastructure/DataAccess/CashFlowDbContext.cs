@@ -13,6 +13,7 @@ namespace CashFlow.Infrastructure.DataAccess
         public DbSet<Orcamento> Orcamentos { get; set; }
         public DbSet<ItemOrcamento> ItensOrcamentos { get; set; }
         public DbSet<ItemOrcamentoValor> ItensOrcamentoValores { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         public CashFlowDbContext(DbContextOptions options) : base(options) { }
 
@@ -23,6 +24,7 @@ namespace CashFlow.Infrastructure.DataAccess
             modelBuilder.ApplyConfiguration(new OrcamentosMap());
             modelBuilder.ApplyConfiguration(new ItensOrcamentoMap()); 
             modelBuilder.ApplyConfiguration(new ItensOrcamentoValoresMap());
+            modelBuilder.ApplyConfiguration(new ClientesMap()); 
         }
     }
 }

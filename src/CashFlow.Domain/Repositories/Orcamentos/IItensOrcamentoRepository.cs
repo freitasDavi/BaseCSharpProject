@@ -8,5 +8,9 @@ namespace CashFlow.Domain.Repositories.Orcamentos
         Task<List<ItemOrcamento>> GetItens(Guid codigoOrcamento);
         Task SalvarItensValores(List<ItemOrcamentoValor> itens);
         Task SalvarItensValores(ItemOrcamentoValor itens);
+        Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItem);
+        Task<ItemOrcamento?> GetItemOrcamentoEValores(Guid codigoItem);
+        Task RemoveItemsParaInsercao(Guid codigoItem);
+        void UpdateItemOrcamento(ItemOrcamento itemOrcamento);
     }
 }
