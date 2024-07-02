@@ -123,6 +123,9 @@
   <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
     <value>O Email ja existe.</value>
   </data>
+  <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+    <value>Email ou senha inválido</value>
+  </data>
   <data name="EXPENSES_CANNOT_FOR_THE_FUTURE" xml:space="preserve">
     <value>As despesas não podem ser para o futuro</value>
   </data>

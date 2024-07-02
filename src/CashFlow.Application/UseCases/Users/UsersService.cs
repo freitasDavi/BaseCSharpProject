@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CashFlow.Communication.Requests;
 using CashFlow.Communication.Requests.Auth;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
@@ -8,7 +9,6 @@ using CashFlow.Domain.Security;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
 using FluentValidation.Results;
-using Microsoft.Extensions.Configuration;
 
 namespace CashFlow.Application.UseCases.Users
 {
@@ -45,6 +45,22 @@ namespace CashFlow.Application.UseCases.Users
 
             await _repository.Create(user);
             await _unitOfWork.Commit();
+
+            return new ResponseRegisteredUserJson
+            {
+                Name = user.Name,
+                Token = _accessTokenGenerator.Generate(user)
+            };
+        }
+
+        public async Task<ResponseRegisteredUserJson> Login(RequestLogin request)
+        {
+            var user = await _repository.GetByEmail(request.Email) ?? throw new InvalidLoginException();
+
+            if (!_passwordEncripter.Verify(request.Password, user.Password))
+            {
+                throw new InvalidLoginException();
+            }
 
             return new ResponseRegisteredUserJson
             {

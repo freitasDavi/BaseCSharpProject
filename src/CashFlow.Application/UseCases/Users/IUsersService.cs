@@ -7,7 +7,6 @@ namespace CashFlow.Application.UseCases.Users
     public interface IUsersService
     {
         Task<ResponseRegisteredUserJson> Register(RequestRegisterUserJson request);
-        //Task Register(RequestCreateUser request);
-        //Task<string> Login(RequestLogin request);
+        Task<ResponseRegisteredUserJson> Login(RequestLogin request);
     }
 }
