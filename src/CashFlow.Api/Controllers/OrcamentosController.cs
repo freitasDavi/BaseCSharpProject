@@ -1,7 +1,9 @@
 ﻿using CashFlow.Application.UseCases.Orcamentos;
 using CashFlow.Application.UseCases.Orcamentos.Itens;
 using CashFlow.Communication.Requests;
+using CashFlow.Communication.Requests.Orcamento;
 using CashFlow.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,7 @@ namespace CashFlow.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrcamentosController : ControllerBase
     {
         private readonly IOrcamentoService _service;
@@ -21,11 +24,23 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([FromBody] Orcamento request)
+        public async Task<IActionResult> Create([FromBody] CreateOrcamentoRequest request)
         {
             var id = await _service.Create(request);
 
             return Created("", id);
+        }
+
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateOrcamentoRequest request)
+        {
+            await _service.Update(id, request);
+
+            return Ok("");
         }
 
         [HttpGet]

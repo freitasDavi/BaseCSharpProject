@@ -88,6 +88,15 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Budget not found.
+        /// </summary>
+        public static string ORCAMENTO_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ORCAMENTO_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid payment type..
         /// </summary>
         public static string PAYMENT_TYPE_INVALID {

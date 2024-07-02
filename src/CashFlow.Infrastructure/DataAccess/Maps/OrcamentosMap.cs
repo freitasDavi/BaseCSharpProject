@@ -20,6 +20,7 @@ namespace CashFlow.Infrastructure.DataAccess.Maps
             builder.Property(x => x.Validade);
             builder.Property(x => x.ValorTotal);
             builder.Property(x => x.CodigoCliente);
+            builder.Property(x => x.Descricao);
         }
     }
 }

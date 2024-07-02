@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
         {
             policy.WithHeaders("Content-Type", "Authorization", "only-if-cached");
             policy.AllowAnyMethod();
-            policy.WithOrigins("http://localhost:3000");
+            policy.WithOrigins("http://localhost:3000", "http://localhost:5173");
         });
 });
 
