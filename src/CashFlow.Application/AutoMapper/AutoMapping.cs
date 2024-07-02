@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Requests;
+using CashFlow.Communication.Requests.Auth;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
 
@@ -17,6 +18,8 @@ namespace CashFlow.Application.AutoMapper
         {
             CreateMap<RequestExpenseJson, Expense>();
             CreateMap<RequestCreateUser, User>();
+            CreateMap<RequestRegisterUserJson, User>()
+                .ForMember(destiny => destiny.Password, config => config.Ignore());
         }
 
         private void EntityToResponse ()

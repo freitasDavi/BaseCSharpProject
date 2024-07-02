@@ -15,7 +15,7 @@ namespace CashFlow.Api.Controllers
         [FromBody] RequestCreateUser request,
         [FromServices] IUsersService service)
         {
-            await service.Register(request);
+            //await service.Register(request);
 
             return Created("", new { msg = "Salvo com sucesso" });
         }
@@ -27,9 +27,9 @@ namespace CashFlow.Api.Controllers
         [FromBody] RequestLogin request,
         [FromServices] IUsersService service)
         {
-            var token = await service.Login(request);
+            //var token = await service.Login(request);
 
-            return Created("", new { msg = token });
+            return Created("", new { msg = "" });
         }
     }
 }

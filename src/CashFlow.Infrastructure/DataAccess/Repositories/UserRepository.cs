@@ -17,6 +17,11 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             await _context.Users.AddAsync(request);
         }
 
+        public async Task<bool> ExistActiveUserWithEmail(string email)
+        {
+            return await _context.Users.AnyAsync(user => user.Email.Equals(email));
+        }
+
         public async Task<User?> GetByEmail(string email)
         {
             return await _context.Users.AsNoTracking().Where(u => u.Email == email).FirstOrDefaultAsync();

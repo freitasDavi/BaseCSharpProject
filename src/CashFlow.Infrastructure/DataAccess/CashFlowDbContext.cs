@@ -1,5 +1,4 @@
 ﻿using CashFlow.Domain.Entities;
-using CashFlow.Infrastructure.DataAccess.Maps;
 using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infrastructure.DataAccess
@@ -10,9 +9,5 @@ namespace CashFlow.Infrastructure.DataAccess
         public DbSet<User> Users { get; set; }  
 
         public CashFlowDbContext(DbContextOptions options) : base(options) { }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
     }
 }
