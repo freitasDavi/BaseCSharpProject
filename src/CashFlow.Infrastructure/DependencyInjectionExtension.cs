@@ -19,7 +19,17 @@ namespace CashFlow.Infrastructure
         {
             AddDbContext(services, configuration);
             AddRepositories(services);
+            AddToken(services, configuration);
             services.AddScoped<IPasswordEncripter, Cryptography>();
+        }
+
+        private static void AddToken(this IServiceCollection services, IConfiguration configuration)
+        {
+            var expirationTimeInMinutes = configuration.GetValue<uint>("Jwt:ExpiresMinutes");
+            var signingkey = configuration.GetValue<string>("Jwt:SigningKey");
+
+            services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationTimeInMinutes, signingkey!));
+
         }
 
         private static void AddRepositories (IServiceCollection services)

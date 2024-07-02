@@ -17,19 +17,19 @@ namespace CashFlow.Application.UseCases.Users
         private readonly IUserRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly IAccessTokenGenerator _accessTokenGenerator;
         private readonly IPasswordEncripter _passwordEncripter;
         public UsersService(
             IUserRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IConfiguration config,
-            IPasswordEncripter passwordEncripter)
+            IPasswordEncripter passwordEncripter,
+            IAccessTokenGenerator accessTokenGenerator)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _configuration = config;
+            _accessTokenGenerator = accessTokenGenerator;
             _passwordEncripter = passwordEncripter;
         }
 
@@ -49,6 +49,7 @@ namespace CashFlow.Application.UseCases.Users
             return new ResponseRegisteredUserJson
             {
                 Name = user.Name,
+                Token = _accessTokenGenerator.Generate(user)
             };
         }
 
