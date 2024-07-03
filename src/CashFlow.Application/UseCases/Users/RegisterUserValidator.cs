@@ -1,4 +1,5 @@
 ﻿using CashFlow.Communication.Requests.Auth;
+using CashFlow.Exception;
 using FluentValidation;
 
 namespace CashFlow.Application.UseCases.Users
@@ -7,12 +8,13 @@ namespace CashFlow.Application.UseCases.Users
     {
         public RegisterUserValidator()
         {
-            RuleFor(user => user.Name).NotEmpty().WithMessage("Nome em branco");
+            RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceErrorMessages.NAME_EMPTY);
             RuleFor(user => user.Email)
                 .NotEmpty()
-                .WithMessage("Email não pode ser em branco")
+                .WithMessage(ResourceErrorMessages.EMAIL_EMPTY)
                 .EmailAddress()
-                .WithMessage("Email deve ser válido");
+                .When(user => string.IsNullOrWhiteSpace(user.Email) == false, ApplyConditionTo.CurrentValidator)
+                .WithMessage(ResourceErrorMessages.EMAIL_VALID);
 
 
             RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestRegisterUserJson>()); 

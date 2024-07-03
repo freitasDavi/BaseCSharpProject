@@ -123,8 +123,14 @@
   <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
     <value>Email already Exists</value>
   </data>
+  <data name="EMAIL_EMPTY" xml:space="preserve">
+    <value>Email cannot be empty.</value>
+  </data>
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>Invalid user or password.</value>
+  </data>
+  <data name="EMAIL_VALID" xml:space="preserve">
+    <value>Email should be a valid email.</value>
   </data>
   <data name="EXPENSES_CANNOT_FOR_THE_FUTURE" xml:space="preserve">
     <value>Expenses cannot be for the future.</value>
@@ -134,6 +140,9 @@
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Sua senha deve ter no mínimo 8 caracteres, contendo pelo menos uma letra maíuscula, uma letra mínuscula, um número e um caractere especial.</value>
+  </data>
+  <data name="NAME_EMPTY" xml:space="preserve">
+    <value>Name cannot be empty.</value>
   </data>
   <data name="ORCAMENTO_NOT_FOUND" xml:space="preserve">
     <value>Budget not found</value>
