@@ -5,5 +5,6 @@ namespace CashFlow.Domain.Security
     public interface IAccessTokenGenerator
     {
         string Generate(User user);
+        Guid GetUserFromToken(string token);
     }
 }

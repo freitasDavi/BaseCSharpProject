@@ -1,6 +1,7 @@
 ﻿using CashFlow.Domain.Repositories;
 using CashFlow.Domain.Repositories.Clientes;
 using CashFlow.Domain.Repositories.Expenses;
+using CashFlow.Domain.Repositories.Incomes;
 using CashFlow.Domain.Repositories.Orcamentos;
 using CashFlow.Domain.Repositories.Pecas;
 using CashFlow.Domain.Security;
@@ -38,7 +39,11 @@ namespace CashFlow.Infrastructure
             services.AddScoped<IExpensesWriteOnlyRepository, ExpensesRepository>();
             services.AddScoped<IExpensesReadOnlyRepository, ExpensesRepository>();
             services.AddScoped<IExpensesUpdateOnlyRepository, ExpensesRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();  
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IIncomesRepository, IncomesRepository>();
+
+
+
             services.AddScoped<IPecasRepository, PecasRepository>();  
             services.AddScoped<IOrcamentosRepository, OrcamentosRepository>();  
             services.AddScoped<IItensOrcamentoRepository, ItensOrcamentoRepository>();  

@@ -39,6 +39,22 @@ namespace CashFlow.Infrastructure.Security
             return tokenHandler.WriteToken(securityToken);
         }
 
+        public Guid GetUserFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            var codigoUsuario = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value;
+
+            if (codigoUsuario is null)
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            return new Guid(codigoUsuario);
+
+        }
+
         private SymmetricSecurityKey SecurityKey ()
         {
             var key = Encoding.UTF8.GetBytes(_signingkey);

@@ -88,6 +88,14 @@ namespace CashFlow.Application.UseCases.Users
         }
         #endregion
 
+        public async Task<User> GetUserByToken(string token)
+        {
+            var identifier = _accessTokenGenerator.GetUserFromToken(token);
+            var user = await _repository.GetUserByIdentifier(identifier) ?? throw new NotFoundException("???? ta de roleplay?");
+
+            return user;
+        }
+
         #region LoginVelho
 
         //public async Task<string> Login(RequestLogin request)

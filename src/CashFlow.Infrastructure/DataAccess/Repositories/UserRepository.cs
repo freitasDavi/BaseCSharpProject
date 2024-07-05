@@ -26,5 +26,10 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         {
             return await _context.Users.AsNoTracking().Where(u => u.Email == email).FirstOrDefaultAsync();
         }
+
+        public async Task<User?> GetUserByIdentifier(Guid identifier)
+        {
+            return await _context.Users.AsNoTracking().Where(u => u.UserIdentifier == identifier).FirstOrDefaultAsync();
+        }
     }
 }

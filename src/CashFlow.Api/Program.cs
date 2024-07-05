@@ -91,6 +91,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<CultureMiddleware>();
+app.UseMiddleware<UserMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseCors(allowedOrigins);
