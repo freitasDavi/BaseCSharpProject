@@ -6,5 +6,6 @@ namespace CashFlow.Domain.Repositories.Incomes
     {
         Task Create(Income newIncome);
         Task<List<Income>> GetAll(long userId);
+        Task<decimal> GetTotalIncomes(long userId);
     }
 }

@@ -23,11 +23,12 @@ namespace CashFlow.Application.UseCases.Expenses.Register
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ResponseRegisterExpenseJson> Execute (RequestExpenseJson request)
+        public async Task<ResponseRegisterExpenseJson> Execute (RequestExpenseJson request, long userId)
         {
             Validate(request);
 
             var entity = _mapper.Map<Expense>(request);
+            entity.UserId = userId;
 
             await _repository.Add(entity);
             await _unitOfWork.Commit();

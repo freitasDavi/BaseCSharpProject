@@ -67,5 +67,10 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
                             .ThenBy(e => e.Title)
                             .ToListAsync();
         }
+
+        public async Task<decimal> GetTotalExpenses(long userId)
+        {
+            return await _dbContext.Expenses.AsNoTracking().Where(e => e.UserId == userId).SumAsync(e => e.Amount);
+        }
     }
 }

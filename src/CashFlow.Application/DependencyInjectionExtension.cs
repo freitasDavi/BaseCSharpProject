@@ -1,5 +1,6 @@
 ﻿using CashFlow.Application.AutoMapper;
 using CashFlow.Application.UseCases.Clientes;
+using CashFlow.Application.UseCases.Expenses;
 using CashFlow.Application.UseCases.Expenses.Delete;
 using CashFlow.Application.UseCases.Expenses.GetAll;
 using CashFlow.Application.UseCases.Expenses.GetById;
@@ -40,6 +41,7 @@ namespace CashFlow.Application
             services.AddScoped<IGenerateExpensesPdfReportUseCase, GenerateExpensesPdfReportUseCase>();
             
             services.AddScoped<IIncomesService, IncomesService>();
+            services.AddScoped<IExpensesService, ExpensesServices>();
             
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IPecasService, PecasService>();

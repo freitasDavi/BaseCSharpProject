@@ -1,9 +1,7 @@
 ﻿using CashFlow.Application.UseCases.Incomes;
-using CashFlow.Application.UseCases.Users;
 using CashFlow.Communication.Requests.Incomes;
+using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
-using CashFlow.Domain.Security;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +10,7 @@ namespace CashFlow.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class IncomesController : ControllerBase
+    public class IncomesController: ControllerBase
     {
         private readonly IIncomesService _incomesService;
         public IncomesController(IIncomesService incomesService)
@@ -35,15 +33,21 @@ namespace CashFlow.Api.Controllers
         {
             var user = HttpContext.Items["CodigoUsuario"];
             
-            var incomes = await _incomesService.GetAll((long)user);
+            var incomes = await _incomesService.GetAll((long)user!);
 
             return Ok(incomes);
         }
 
         [HttpGet("totalizador")]
-        public async Task<IActionResult> GetTotalExpenses ()
+        [ProducesResponseType(typeof(DashboardTotalResponse), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetTotalExpenses()
         {
-            return Ok();
+            var user = HttpContext.Items["CodigoUsuario"];
+
+            var total = await _incomesService.GetTotalIncomes((long)user!);
+
+            return Ok(total);
         }
     }
 }

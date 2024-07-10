@@ -1,4 +1,5 @@
-﻿using CashFlow.Application.UseCases.Expenses.Delete;
+﻿using CashFlow.Application.UseCases.Expenses;
+using CashFlow.Application.UseCases.Expenses.Delete;
 using CashFlow.Application.UseCases.Expenses.GetAll;
 using CashFlow.Application.UseCases.Expenses.GetById;
 using CashFlow.Application.UseCases.Expenses.Register;
@@ -27,7 +28,9 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] RequestExpenseJson request)
         {
-            var response = await _registerExpense.Execute(request);
+            var user = HttpContext.Items["CodigoUsuario"];
+
+            var response = await _registerExpense.Execute(request, (long)user);
 
             return Created("", response);
         }
@@ -87,5 +90,18 @@ namespace CashFlow.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("totalizador")]
+        [ProducesResponseType(typeof(DashboardTotalResponse), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetTotal([FromServices] IExpensesService service)
+        {
+            var user = HttpContext.Items["CodigoUsuario"];
+
+            var response = await service.GetTotalExpense((long)user);
+
+            return Ok(response);
+        }
+
     }
 }

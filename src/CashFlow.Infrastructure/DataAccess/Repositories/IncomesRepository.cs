@@ -22,5 +22,10 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         {
             return await _dbContext.Incomes.AsNoTracking().Where(p => p.UserId == userId).ToListAsync();
         }
+
+        public async Task<decimal> GetTotalIncomes(long userId)
+        {
+            return await _dbContext.Incomes.AsNoTracking().Where(p => p.UserId == userId).SumAsync(i => i.Amount);
+        }
     }
 }
