@@ -33,7 +33,7 @@ namespace CashFlow.Infrastructure
 
         }
 
-        private static void AddRepositories (IServiceCollection services)
+        private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnityOfWork>();
             services.AddScoped<IExpensesWriteOnlyRepository, ExpensesRepository>();
@@ -44,15 +44,16 @@ namespace CashFlow.Infrastructure
 
 
 
-            services.AddScoped<IPecasRepository, PecasRepository>();  
-            services.AddScoped<IOrcamentosRepository, OrcamentosRepository>();  
-            services.AddScoped<IItensOrcamentoRepository, ItensOrcamentoRepository>();  
+            services.AddScoped<IPecasRepository, PecasRepository>();
+            services.AddScoped<IOrcamentosRepository, OrcamentosRepository>();
+            services.AddScoped<IItensOrcamentoRepository, ItensOrcamentoRepository>();
             services.AddScoped<IClientesRepository, ClientesRepository>();
         }
 
-        private static void AddDbContext(IServiceCollection services, IConfiguration configuration) 
+        private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Connection");
+            //var connectionString = configuration.GetConnectionString("Connection");
+            var connectionString = "Host=localhost;Database=postgres;Username=admin;Password=adm321!";
 
             services.AddDbContext<CashFlowDbContext>(options => options.UseNpgsql(connectionString));
         }

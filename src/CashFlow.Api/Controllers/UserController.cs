@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

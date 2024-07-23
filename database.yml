@@ -1,0 +1,16 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    networks:
+      - app-tier
+
+  my-app:
+    image: 'project-t'
+    networks:
+      - app-tier
