@@ -1,8 +1,10 @@
 using CashFlow.Api.Filters;
 using CashFlow.Api.Middlewares;
+using CashFlow.Api.Token;
 using CashFlow.Application;
 using CashFlow.Infrastructure;
 using CashFlow.Infrastructure.Migrations;
+using CashFlow.Infrastructure.Services.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -24,6 +26,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -89,7 +95,6 @@ app.UseSwaggerUI();
 
 
 app.UseMiddleware<CultureMiddleware>();
-app.UseMiddleware<UserMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseCors(allowedOrigins);

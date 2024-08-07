@@ -5,9 +5,11 @@ using CashFlow.Domain.Repositories.Incomes;
 using CashFlow.Domain.Repositories.Orcamentos;
 using CashFlow.Domain.Repositories.Pecas;
 using CashFlow.Domain.Security;
+using CashFlow.Domain.Services.LoggedUser;
 using CashFlow.Infrastructure.DataAccess;
 using CashFlow.Infrastructure.DataAccess.Repositories;
 using CashFlow.Infrastructure.Security;
+using CashFlow.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace CashFlow.Infrastructure
             AddRepositories(services);
             AddToken(services, configuration);
             services.AddScoped<IPasswordEncripter, Cryptography>();
+            services.AddScoped<ILoggedUser, LoggedUser>();
         }
 
         private static void AddToken(this IServiceCollection services, IConfiguration configuration)
@@ -52,8 +55,8 @@ namespace CashFlow.Infrastructure
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            //var connectionString = configuration.GetConnectionString("Connection");
-            var connectionString = "Host=localhost;Database=postgres;Username=admin;Password=adm321!";
+            var connectionString = configuration.GetConnectionString("Connection");
+            //var connectionString = "Host=localhost;Database=postgres;Username=admin;Password=adm321!";
 
             services.AddDbContext<CashFlowDbContext>(options => options.UseNpgsql(connectionString));
         }

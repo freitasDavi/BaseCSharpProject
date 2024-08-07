@@ -28,9 +28,8 @@ namespace CashFlow.Api.Controllers
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] RequestExpenseJson request)
         {
-            var user = HttpContext.Items["CodigoUsuario"];
 
-            var response = await _registerExpense.Execute(request, (long)user);
+            var response = await _registerExpense.Execute(request);
 
             return Created("", response);
         }

@@ -9,7 +9,7 @@ namespace CashFlow.Domain.Repositories.Expenses
         /// This function returns TRUE if the deletion was successfull otherwise returns false
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>boolean</returns>
-        Task<bool> Delete(long id);
+        /// <returns></returns>
+        Task Delete(long id);
     }
 }
