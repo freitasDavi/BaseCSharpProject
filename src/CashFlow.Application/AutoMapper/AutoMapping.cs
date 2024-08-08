@@ -18,18 +18,28 @@ namespace CashFlow.Application.AutoMapper
 
         private void RequestToEntity ()
         {
-            CreateMap<RequestExpenseJson, Expense>();
             CreateMap<RequestCreateUser, User>();
+            CreateMap<CreateIncomeRequest, Income>();
+
             CreateMap<RequestRegisterUserJson, User>()
                 .ForMember(destiny => destiny.Password, config => config.Ignore());
-            CreateMap<CreateIncomeRequest, Income>();
+
+            
+            CreateMap<RequestExpenseJson, Expense>()
+                .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Distinct()));
+
+            CreateMap<Communication.Enums.Tag, Domain.Entities.Tag>()
+                .ForMember(dest => dest.Value, config => config.MapFrom(source => source));
         }
 
         private void EntityToResponse ()
         {
             CreateMap<Expense, ResponseRegisterExpenseJson>();
             CreateMap<Expense, ResponseShortExpenseJson>();
-            CreateMap<Expense, ResponseExpenseJson>();
+            
+            CreateMap<Expense, ResponseExpenseJson>()
+                .ForMember(dest => dest.Tags, config => config.MapFrom(source => source.Tags.Select(tag => tag.Value)));
+
             CreateMap<User, ResponseUserProfileJson>();
         }
     }
