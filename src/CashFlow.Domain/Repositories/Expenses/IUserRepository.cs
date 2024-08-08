@@ -8,5 +8,8 @@ namespace CashFlow.Domain.Repositories.Expenses
         Task<User?> GetByEmail(string email);
         Task<bool> ExistActiveUserWithEmail(string email);
         Task<User?> GetUserByIdentifier(Guid identifier);
+        Task<User> GetUserById(long id);
+        void Update(User user);
+        Task Delete(User user);
     }
 }

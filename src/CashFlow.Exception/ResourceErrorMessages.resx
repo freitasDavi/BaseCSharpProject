@@ -147,6 +147,9 @@
   <data name="ORCAMENTO_NOT_FOUND" xml:space="preserve">
     <value>Budget not found</value>
   </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PAST" xml:space="preserve">
+    <value>The passwords don't match</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Invalid payment type.</value>
   </data>

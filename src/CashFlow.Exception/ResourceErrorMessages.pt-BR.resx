@@ -138,6 +138,9 @@
   <data name="ORCAMENTO_NOT_FOUND" xml:space="preserve">
     <value>O orçamento não foi encontrado.</value>
   </data>
+  <data name="PASSWORD_DIFFERENT_CURRENT_PAST" xml:space="preserve">
+    <value>A senha informada não é a mesma</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>O tipo de pagamento é inválido</value>
   </data>

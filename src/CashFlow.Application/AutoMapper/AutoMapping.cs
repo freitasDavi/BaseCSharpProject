@@ -3,6 +3,7 @@ using CashFlow.Communication.Requests;
 using CashFlow.Communication.Requests.Auth;
 using CashFlow.Communication.Requests.Incomes;
 using CashFlow.Communication.Responses;
+using CashFlow.Communication.Responses.Users;
 using CashFlow.Domain.Entities;
 
 namespace CashFlow.Application.AutoMapper
@@ -29,7 +30,7 @@ namespace CashFlow.Application.AutoMapper
             CreateMap<Expense, ResponseRegisterExpenseJson>();
             CreateMap<Expense, ResponseShortExpenseJson>();
             CreateMap<Expense, ResponseExpenseJson>();
-
+            CreateMap<User, ResponseUserProfileJson>();
         }
     }
 }

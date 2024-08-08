@@ -151,6 +151,15 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The passwords don&apos;t match.
+        /// </summary>
+        public static string PASSWORD_DIFFERENT_CURRENT_PAST {
+            get {
+                return ResourceManager.GetString("PASSWORD_DIFFERENT_CURRENT_PAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid payment type..
         /// </summary>
         public static string PAYMENT_TYPE_INVALID {

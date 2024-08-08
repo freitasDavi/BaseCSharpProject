@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Requests.Auth;
+using CashFlow.Communication.Requests.Users;
 using CashFlow.Communication.Responses;
+using CashFlow.Communication.Responses.Users;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repositories;
 using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Domain.Security;
+using CashFlow.Domain.Services.LoggedUser;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
 using FluentValidation.Results;
@@ -19,18 +22,21 @@ namespace CashFlow.Application.UseCases.Users
         private readonly IMapper _mapper;
         private readonly IAccessTokenGenerator _accessTokenGenerator;
         private readonly IPasswordEncripter _passwordEncripter;
+        private readonly ILoggedUser _loggedUser;
         public UsersService(
             IUserRepository repository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IPasswordEncripter passwordEncripter,
-            IAccessTokenGenerator accessTokenGenerator)
+            IAccessTokenGenerator accessTokenGenerator,
+            ILoggedUser loggedUser)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _accessTokenGenerator = accessTokenGenerator;
             _passwordEncripter = passwordEncripter;
+            _loggedUser = loggedUser;
         }
 
         #region NovoLogin
@@ -94,6 +100,96 @@ namespace CashFlow.Application.UseCases.Users
             var user = await _repository.GetUserByIdentifier(identifier) ?? throw new NotFoundException("???? ta de roleplay?");
 
             return user;
+        }
+
+        public async Task<ResponseUserProfileJson> Get()
+        {
+            var user = await _loggedUser.Get();
+
+            return _mapper.Map<ResponseUserProfileJson>(user);  
+        }
+
+        public async Task Update(RequestUpdateUserJson request)
+        {
+            var loggedUser = await _loggedUser.Get();
+
+            await Validate(request, loggedUser.Email);
+
+            var user = await _repository.GetUserById(loggedUser.Id);    
+
+            user.Name = request.Name;
+            user.Email = request.Email;
+
+            _repository.Update(user);
+
+            await _unitOfWork.Commit();
+        }
+
+        private async Task Validate(RequestUpdateUserJson request, string currentEmail)
+        {
+            var validator = new UpdateUserValidator();
+
+            var result = validator.Validate(request);
+
+            if (currentEmail.Equals(request.Email) == false)
+            {
+                var userExists = await _repository.ExistActiveUserWithEmail(request.Email);
+
+                if (userExists)
+                    result.Errors.Add(new ValidationFailure(string.Empty, ResourceErrorMessages.EMAIL_ALREADY_EXISTS));
+            }
+
+            if (result.IsValid == false)
+            {
+                var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+
+                throw new ErrorOnValidationException(errorMessages);
+            }
+        }
+
+        public async Task ChangePassword(RequestChangePasswordJson request)
+        {
+            var loggedUser = await _loggedUser.Get();
+
+            Validate(request, loggedUser);
+
+            var user = await _repository.GetUserById(loggedUser.Id);
+
+            user.Password = _passwordEncripter.Encrypt(request.NewPassword);
+
+            _repository.Update(user);
+
+            await _unitOfWork.Commit(); 
+        }
+
+        private void Validate(RequestChangePasswordJson request, User loggedUser)
+        {
+            var validator = new ChangePasswordValidator();
+
+            var result = validator.Validate(request);
+
+            var passwordMatch = _passwordEncripter.Verify(request.Password, loggedUser.Password);
+
+            if (passwordMatch == false) 
+            {
+                result.Errors.Add(new ValidationFailure(string.Empty, ResourceErrorMessages.PASSWORD_DIFFERENT_CURRENT_PAST));
+            }
+
+            if (result.IsValid == false)
+            {
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();    
+                
+                throw new ErrorOnValidationException(errors);
+            }
+        }
+
+        public async Task DeleteUserAccount()
+        {
+            var user = await _loggedUser.Get();
+
+            await _repository.Delete(user);
+
+            await _unitOfWork.Commit();
         }
 
         #region LoginVelho
