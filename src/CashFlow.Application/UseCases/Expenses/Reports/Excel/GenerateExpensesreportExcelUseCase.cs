@@ -1,6 +1,7 @@
 ﻿using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
+using CashFlow.Domain.Services.LoggedUser;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
@@ -9,13 +10,17 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
     {
         private const string CURRENCY_SYMBOL = "R$";
         private readonly IExpensesReadOnlyRepository _repository;
-        public GenerateExpensesreportExcelUseCase(IExpensesReadOnlyRepository repository)
+        private readonly ILoggedUser _loggedUser;
+        public GenerateExpensesreportExcelUseCase(IExpensesReadOnlyRepository repository, ILoggedUser loggedUser)
         {
             _repository = repository;
+            _loggedUser = loggedUser;
         }
         public async Task<byte[]> Execute(DateOnly month)
         {
-            var expenses = await _repository.FilterByMonth(month);
+            var loggedUser = await _loggedUser.Get();
+
+            var expenses = await _repository.FilterByMonth(loggedUser, month);
 
             if (expenses.Count == 0)
             {

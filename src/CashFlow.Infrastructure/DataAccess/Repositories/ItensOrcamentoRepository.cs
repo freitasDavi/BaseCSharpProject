@@ -14,51 +14,58 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
 
         public async Task<Guid> Create(ItemOrcamento request)
         {
-            request.Id = new Guid();
+            throw new NotImplementedException();
+            //request.Id = new Guid();
 
-            await _dbContext.ItensOrcamentos.AddAsync(request);
+            //await _dbContext.ItensOrcamentos.AddAsync(request);
 
-            return request.Id;
+            //return request.Id;
         }
 
         public async Task<List<ItemOrcamento>> GetItens(Guid codigoOrcamento)
         {
-            return await _dbContext.ItensOrcamentos.AsNoTracking().Where(io => io.CodigoOrcamento == codigoOrcamento).ToListAsync();
+            throw new NotImplementedException();
+            //return await _dbContext.ItensOrcamentos.AsNoTracking().Where(io => io.CodigoOrcamento == codigoOrcamento).ToListAsync();
         }
 
         public async Task SalvarItensValores(List<ItemOrcamentoValor> itens)
         {
-            await _dbContext.ItensOrcamentoValores.AddRangeAsync(itens);
+            throw new NotImplementedException();
+            //await _dbContext.ItensOrcamentoValores.AddRangeAsync(itens);
         }
 
         public async Task SalvarItensValores(ItemOrcamentoValor item)
         {
             item.Id = Guid.NewGuid();
-            await _dbContext.ItensOrcamentoValores.AddAsync(item);
+            throw new NotImplementedException();
+            //await _dbContext.ItensOrcamentoValores.AddAsync(item);
         }
 
         public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItem)
         {
-            return await _dbContext.ItensOrcamentoValores.AsNoTracking().Where(iov => iov.CodigoItemOrcamento == codigoItem).ToListAsync();
+            throw new NotImplementedException();
+            //return await _dbContext.ItensOrcamentoValores.AsNoTracking().Where(iov => iov.CodigoItemOrcamento == codigoItem).ToListAsync();
         }
 
         public async Task<ItemOrcamento?> GetItemOrcamentoEValores(Guid codigoItem)
         {
-            var itens = await _dbContext.ItensOrcamentos.Where(io => io.Id == codigoItem).FirstOrDefaultAsync();
-
-            return itens;
+            //var itens = await _dbContext.ItensOrcamentos.Where(io => io.Id == codigoItem).FirstOrDefaultAsync();
+            throw new NotImplementedException();
+            //return itens;
         }
 
         public async Task RemoveItemsParaInsercao(Guid codigoItem)
         {
-            var valoresParaRemover = await _dbContext.ItensOrcamentoValores.Where(iol => iol.CodigoItemOrcamento == codigoItem).ToListAsync();
-            
-            _dbContext.ItensOrcamentoValores.RemoveRange(valoresParaRemover);
+            throw new NotImplementedException();
+            //var valoresParaRemover = await _dbContext.ItensOrcamentoValores.Where(iol => iol.CodigoItemOrcamento == codigoItem).ToListAsync();
+
+            //_dbContext.ItensOrcamentoValores.RemoveRange(valoresParaRemover);
         }
 
         public void UpdateItemOrcamento(ItemOrcamento itemOrcamento)
         {
-            _dbContext.ItensOrcamentos.Update(itemOrcamento);
+            throw new NotImplementedException();
+            //_dbContext.ItensOrcamentos.Update(itemOrcamento);
         }
     }
 }

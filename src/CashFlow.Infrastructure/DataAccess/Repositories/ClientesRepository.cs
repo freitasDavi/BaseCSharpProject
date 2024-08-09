@@ -14,12 +14,13 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
 
         public async Task Create(Cliente request)
         {
-            await _context.Clientes.AddAsync(request);
+            throw new NotImplementedException();
         }
 
         public async Task<List<Cliente>> GetAll()
         {
-            return await _context.Clientes.AsNoTracking().ToListAsync();
+            throw new NotImplementedException();
+            //return await _context.Clientes.AsNoTracking().ToListAsync();
         }
     }
 }

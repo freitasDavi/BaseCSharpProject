@@ -14,40 +14,46 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         public async Task<Guid> Create(Peca request)
         {
             request.Id = Guid.NewGuid();
-            await _db.Pecas.AddAsync(request);
-
+            //await _db.Pecas.AddAsync(request);
+            throw new NotImplementedException();
             return request.Id;
         }
 
         public async Task<List<Peca>> GetAll()
         {
-            return await _db.Pecas.AsNoTracking().ToListAsync();
+            throw new NotImplementedException();
+            //return await _db.Pecas.AsNoTracking().ToListAsync();
         }
 
         public async Task<Peca?> GetById(Guid id)
         {
-            return await _db.Pecas.AsNoTracking().Where(p => p.Id == id).FirstOrDefaultAsync();
+            throw new NotImplementedException();
+            //return await _db.Pecas.AsNoTracking().Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task InsertValor(ValorPeca valorPeca)
         {
             valorPeca.Id = Guid.NewGuid();
-            await _db.ValoresPecas.AddAsync(valorPeca);
+            throw new NotImplementedException();
+            //await _db.ValoresPecas.AddAsync(valorPeca);
         }
 
         public async Task InsertValores(List<ValorPeca> valorePecas)
         {
-            await _db.ValoresPecas.AddRangeAsync(valorePecas); 
+            throw new NotImplementedException();
+            //await _db.ValoresPecas.AddRangeAsync(valorePecas); 
         }
 
         public void Update(Peca request)
         {
-            _db.Pecas.Update(request);
+            throw new NotImplementedException();
+            //_db.Pecas.Update(request);
         }
 
         public async Task<List<ValorPeca>> GetValoresPeca(Guid codigoPeca)
         {
-            return await _db.ValoresPecas.Where(vp => vp.CodigoPeca == codigoPeca).ToListAsync();
+            throw new NotImplementedException();
+            //return await _db.ValoresPecas.Where(vp => vp.CodigoPeca == codigoPeca).ToListAsync();
         }
     }
 }

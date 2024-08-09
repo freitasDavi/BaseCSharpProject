@@ -14,26 +14,30 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         public async Task Create(Orcamento orcamento)
         {
             orcamento.Id = Guid.NewGuid();
-            await _dbContext.Orcamentos.AddAsync(orcamento);
+            throw new NotImplementedException();
+            //await _dbContext.Orcamentos.AddAsync(orcamento);
         }
 
         public void Update(Orcamento orcamento)
         {
-            _dbContext.Orcamentos.Update(orcamento);
+            throw new NotImplementedException();
+            //_dbContext.Orcamentos.Update(orcamento);
         }
 
         public async Task<Orcamento?> GetById(Guid id)
         {
-            return await _dbContext.Orcamentos.AsNoTracking().Where(o => o.Id == id).FirstOrDefaultAsync();
+            throw new NotImplementedException();
+            //return await _dbContext.Orcamentos.AsNoTracking().Where(o => o.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<List<Orcamento>> Get()
         {
-            return await _dbContext
-                .Orcamentos
-                .AsNoTracking()
-                .OrderBy(o => o.Emissao)
-                .ToListAsync();
+            throw new NotImplementedException();
+            //return await _dbContext
+            //    .Orcamentos
+            //    .AsNoTracking()
+            //    .OrderBy(o => o.Emissao)
+            //    .ToListAsync();
         }
     }
 }
