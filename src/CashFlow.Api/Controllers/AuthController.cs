@@ -2,6 +2,7 @@
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
+using CashFlow.Communication.Requests.Auth;
 
 namespace CashFlow.Api.Controllers
 {
@@ -16,7 +17,11 @@ namespace CashFlow.Api.Controllers
         [FromBody] RequestCreateUser request,
         [FromServices] IUsersService service)
         {
-            //await service.Register(request);
+            await service.Register(new RequestRegisterUserJson {
+                Name = request.Name,
+                Email = request.Email,
+                Password = request.Password
+            });
 
             return Created("", new { msg = "Salvo com sucesso" });
         }

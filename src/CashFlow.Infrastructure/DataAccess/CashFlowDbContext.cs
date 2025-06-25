@@ -9,6 +9,8 @@ namespace CashFlow.Infrastructure.DataAccess
         public DbSet<User> Users { get; set; }  
         public DbSet<Income> Incomes { get; set; }
         
+        public DbSet<Orcamento> Orcamentos { get; set; }
+        
 
         public CashFlowDbContext(DbContextOptions options) : base(options) { }
 

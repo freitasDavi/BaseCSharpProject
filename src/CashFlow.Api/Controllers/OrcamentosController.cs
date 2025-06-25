@@ -83,15 +83,15 @@ namespace CashFlow.Api.Controllers
             return Ok(await service.GetItens(id));
         }
 
-        [HttpGet]
-        [Route("itens/{id}/valores")]
-        [ProducesResponseType(typeof(List<ItemOrcamentoValor>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetValoresItemOrcamento(
-            [FromRoute] Guid id,
-            [FromServices] IItensOrcamentoService service)
-        {
-            return Ok(await service.GetValoresItemOrcamento(id));
-        }
+        // [HttpGet]
+        // [Route("itens/{id}/valores")]
+        // [ProducesResponseType(typeof(List<ItemOrcamentoValor>), StatusCodes.Status200OK)]
+        // public async Task<IActionResult> GetValoresItemOrcamento(
+        //     [FromRoute] Guid id,
+        //     [FromServices] IItensOrcamentoService service)
+        // {
+        //     return Ok(await service.GetValoresItemOrcamento(id));
+        // }
 
         [HttpPut]
         [Route("{id}/itens")]
