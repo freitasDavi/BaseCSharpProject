@@ -17,23 +17,23 @@ internal class ProdutosRepository(CashFlowDbContext dbContext) : IProdutosReposi
         return request.Id;
     }
 
-    public void Delete(Produto request)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<List<Produto>> GetAll()
     {
         return await _dbContext.Produtos.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Produto?> GetById(Guid id)
+    public async Task<Produto?> GetById(Guid id, bool asNoTracking = true)
     {
-        return await _dbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        if (asNoTracking)
+        {
+            return await _dbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        return await _dbContext.Produtos.FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public void Update(Produto request)
     {
-        throw new NotImplementedException();
+        _dbContext.Produtos.Update(request);
     }
 }
