@@ -19,7 +19,10 @@ internal class ProdutosRepository(CashFlowDbContext dbContext) : IProdutosReposi
 
     public async Task<List<Produto>> GetAll()
     {
-        return await _dbContext.Produtos.AsNoTracking().ToListAsync();
+        return await _dbContext.Produtos
+            .AsNoTracking()
+            .Include(p => p.Composicoes)
+            .ToListAsync();
     }
 
     public async Task<Produto?> GetById(Guid id, bool asNoTracking = true)
@@ -35,5 +38,10 @@ internal class ProdutosRepository(CashFlowDbContext dbContext) : IProdutosReposi
     public void Update(Produto request)
     {
         _dbContext.Produtos.Update(request);
+    }
+
+    public async Task AddPartesDoProduto(List<ComposicaoProduto> partes)
+    {
+        await _dbContext.ComposicoesProdutos.AddRangeAsync(partes);
     }
 }

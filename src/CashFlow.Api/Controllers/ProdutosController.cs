@@ -46,4 +46,12 @@ public class ProdutosController(IProdutosService produtosService) : ControllerBa
 
         return NoContent();
     }
+
+    [HttpPost("{produtoId:guid}/partes")]
+    public async Task<IActionResult> AddPartesDoProduto([FromRoute] Guid produtoId, [FromBody] List<AddParteProdutoRequest> partes)
+    {
+        await _service.AddPartesDoProduto(produtoId, partes);
+
+        return NoContent();
+    }
 }

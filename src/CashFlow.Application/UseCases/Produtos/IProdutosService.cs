@@ -10,4 +10,5 @@ public interface IProdutosService
     Task<IEnumerable<Produto>> GetAll();
     Task<Produto?> GetById(Guid id);
     Task UpdateProduto(UpdateProdutoRequest request);
+    Task AddPartesDoProduto(Guid produtoId, List<AddParteProdutoRequest> partes);
 }

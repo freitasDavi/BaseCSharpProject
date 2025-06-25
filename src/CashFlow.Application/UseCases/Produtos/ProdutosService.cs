@@ -12,6 +12,7 @@ public class ProdutosService(IProdutosRepository repository, IUnitOfWork unitOfW
 {
     private readonly IProdutosRepository _repository = repository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+
     public async Task<Guid> CreateProduto(CreateProdutoRequest request)
     {
         var produto = new Produto
@@ -49,6 +50,21 @@ public class ProdutosService(IProdutosRepository repository, IUnitOfWork unitOfW
         produtoASerAtualizado.Nome = request.Nome;
 
         _repository.Update(produtoASerAtualizado);
+        await _unitOfWork.Commit();
+    }
+
+    public async Task AddPartesDoProduto(Guid produtoId, List<AddParteProdutoRequest> partes)
+    {
+        var produtoExiste = await _repository.GetById(produtoId, false) ?? throw new NotFoundException($"Produto não encontrado com o id {produtoId}");
+
+        List<ComposicaoProduto> partesDoProduto = [.. partes.Select(p => new ComposicaoProduto
+        {
+            CodigoProduto = produtoExiste.Id,
+            Quantidade = p.Quantidade,
+            CodigoPeca = p.CodigoPeca,
+        })];
+
+        await _repository.AddPartesDoProduto(partesDoProduto);
         await _unitOfWork.Commit();
     }
 }

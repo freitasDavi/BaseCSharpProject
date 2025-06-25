@@ -24,7 +24,9 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
 
         public async Task<List<Peca>> GetAll()
         {
-            return await _db.Pecas.AsNoTracking().ToListAsync();
+            return await _db.Pecas
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<Peca?> GetById(Guid id)

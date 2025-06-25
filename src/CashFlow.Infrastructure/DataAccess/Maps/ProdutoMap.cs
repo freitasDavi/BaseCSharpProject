@@ -37,7 +37,7 @@ public class ProdutoMap : IEntityTypeConfiguration<Produto>
 
         builder.HasMany(x => x.Composicoes)
             .WithOne()
-            .HasForeignKey("CodigoProduto")
+            .HasForeignKey(p => p.CodigoProduto)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
