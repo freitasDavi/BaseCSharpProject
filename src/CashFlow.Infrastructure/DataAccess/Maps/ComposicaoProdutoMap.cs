@@ -14,7 +14,7 @@ public class ComposicaoProdutoMap : IEntityTypeConfiguration<ComposicaoProduto>
 
         builder.Property(x => x.Id)
             .HasColumnName("CodigoComposicaoProduto")
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd();
 
         builder.Property(x => x.CodigoProduto)
             .HasColumnName("CodigoProduto")
