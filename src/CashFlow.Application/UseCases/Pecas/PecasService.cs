@@ -10,7 +10,7 @@ namespace CashFlow.Application.UseCases.Pecas
         private readonly IPecasRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         public PecasService(
-            IPecasRepository repository, 
+            IPecasRepository repository,
             IUnitOfWork unitOfWork)
         {
             _repository = repository;
@@ -23,7 +23,7 @@ namespace CashFlow.Application.UseCases.Pecas
 
             return id;
         }
-            
+
         public async Task<List<Peca>> GetAll()
         {
             return await _repository.GetAll();
@@ -34,25 +34,6 @@ namespace CashFlow.Application.UseCases.Pecas
             var peca = await _repository.GetById(id);
 
             return peca is null ? throw new NotFoundException("Peça") : peca;
-        }
-
-        public async Task InsertValor(Guid codigoPeca, ValorPeca valorPeca)
-        {
-            valorPeca.CodigoPeca = codigoPeca;
-
-            await _repository.InsertValor(valorPeca);
-            await _unitOfWork.Commit();
-        }
-
-        public async Task InsertValores(Guid codigoPeca, List<ValorPeca> valorPecas)
-        {
-            valorPecas.ForEach(vl => vl.CodigoPeca = codigoPeca);
-
-            //await _repository.InsertValores(valorPecas);
-
-            valorPecas.ForEach(async vlr => await _repository.InsertValor(vlr));
-
-            await _unitOfWork.Commit();
         }
 
         public Task Update(Guid id, Peca request)

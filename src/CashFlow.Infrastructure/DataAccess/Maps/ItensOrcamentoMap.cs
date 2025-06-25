@@ -8,19 +8,61 @@ namespace CashFlow.Infrastructure.DataAccess.Maps
     {
         public void Configure(EntityTypeBuilder<ItemOrcamento> builder)
         {
-            builder.ToTable("itemorcamento");
+            builder.ToTable("item_orcamento");
 
             builder.HasKey(x => x.Id);
+
             builder.Property(x => x.Id)
                 .HasColumnName("CodigoItemOrcamento")
-                .ValueGeneratedOnAdd();
+                .ValueGeneratedNever();
 
-            builder.Property(x => x.Descricao);
-            builder.Property(x => x.Quantidade);
-            builder.Property(x => x.CodigoOrcamento);
-            builder.Property(x => x.CodigoPeca);
-            builder.Property(x => x.Nome);
-            builder.Property(x => x.ValorTotal);
+            builder.Property(x => x.Nome)
+                .HasColumnName("Nome")
+                .HasMaxLength(200)
+                .IsRequired();
+
+            builder.Property(x => x.Descricao)
+                .HasColumnName("Descricao")
+                .HasMaxLength(500)
+                .IsRequired();
+
+            builder.Property(x => x.Quantidade)
+                .HasColumnName("Quantidade")
+                .IsRequired();
+
+            builder.Property(x => x.ValorUnitario)
+                .HasColumnName("ValorUnitario")
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            builder.Property(x => x.ValorTotal)
+                .HasColumnName("ValorTotal")
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            builder.Property(x => x.Desconto)
+                .HasColumnName("Desconto")
+                .HasColumnType("decimal(18,2)")
+                .HasDefaultValue(0)
+                .IsRequired();
+
+            builder.Property(x => x.CodigoOrcamento)
+                .HasColumnName("CodigoOrcamento")
+                .IsRequired();
+
+            builder.Property(x => x.CodigoProduto)
+                .HasColumnName("CodigoProduto")
+                .IsRequired();
+
+            builder.HasOne(x => x.Produto)
+                .WithMany()
+                .HasForeignKey(x => x.CodigoProduto)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Orcamento)
+                .WithMany(o => o.Itens)
+                .HasForeignKey(x => x.CodigoOrcamento)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

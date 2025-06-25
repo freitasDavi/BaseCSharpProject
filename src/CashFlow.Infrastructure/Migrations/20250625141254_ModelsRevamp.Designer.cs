@@ -3,6 +3,7 @@ using System;
 using CashFlow.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CashFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(CashFlowDbContext))]
-    partial class CashFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250625141254_ModelsRevamp")]
+    partial class ModelsRevamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,7 +273,7 @@ namespace CashFlow.Infrastructure.Migrations
                         .HasColumnName("Descricao");
 
                     b.Property<DateTime>("Emissao")
-                        .HasColumnType("timestamp")
+                        .HasColumnType("datetime")
                         .HasColumnName("Emissao");
 
                     b.Property<string>("Observacao")
@@ -283,7 +286,7 @@ namespace CashFlow.Infrastructure.Migrations
                         .HasColumnName("Status");
 
                     b.Property<DateTime>("Validade")
-                        .HasColumnType("timestamp")
+                        .HasColumnType("datetime")
                         .HasColumnName("Validade");
 
                     b.Property<decimal>("ValorTotal")

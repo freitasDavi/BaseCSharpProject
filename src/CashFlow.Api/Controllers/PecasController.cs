@@ -8,7 +8,7 @@ namespace CashFlow.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class PecasController : ControllerBase
     {
         private readonly IPecasService _pecasService;
@@ -44,30 +44,6 @@ namespace CashFlow.Api.Controllers
             var peca = await _pecasService.GetById(id);
 
             return Ok(peca);
-        }
-
-        [HttpPost]
-        [Route("{id}/InserirValor")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> InserirValor(
-            [FromRoute] Guid id,
-            [FromBody] ValorPeca request)
-        {
-            await _pecasService.InsertValor(id, request);
-
-            return Created("", id);
-        }
-
-        [HttpPost]
-        [Route("{id}/InserirValores")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> InserirValores(
-            [FromRoute] Guid id,
-            [FromBody] List<ValorPeca> request)
-        {
-            await _pecasService.InsertValores(id, request);
-
-            return Created("", id);
         }
     }
 }
