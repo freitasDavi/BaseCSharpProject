@@ -12,15 +12,15 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Guid> Create(ItemOrcamento request)
-        {
-            throw new NotImplementedException();
-            //request.Id = new Guid();
+        // public async Task<Guid> Create(ItemOrcamento request)
+        // {
+        //     throw new NotImplementedException();
+        //     //request.Id = new Guid();
 
-            //await _dbContext.ItensOrcamentos.AddAsync(request);
+        //     //await _dbContext.ItensOrcamentos.AddAsync(request);
 
-            //return request.Id;
-        }
+        //     //return request.Id;
+        // }
 
         public async Task<List<ItemOrcamento>> GetItens(Guid codigoOrcamento)
         {
@@ -28,24 +28,24 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             //return await _dbContext.ItensOrcamentos.AsNoTracking().Where(io => io.CodigoOrcamento == codigoOrcamento).ToListAsync();
         }
 
-        public async Task SalvarItensValores(List<ItemOrcamentoValor> itens)
-        {
-            throw new NotImplementedException();
-            //await _dbContext.ItensOrcamentoValores.AddRangeAsync(itens);
-        }
+        // public async Task SalvarItensValores(List<ItemOrcamentoValor> itens)
+        // {
+        //     throw new NotImplementedException();
+        //     //await _dbContext.ItensOrcamentoValores.AddRangeAsync(itens);
+        // }
 
-        public async Task SalvarItensValores(ItemOrcamentoValor item)
-        {
-            item.Id = Guid.NewGuid();
-            throw new NotImplementedException();
-            //await _dbContext.ItensOrcamentoValores.AddAsync(item);
-        }
+        // public async Task SalvarItensValores(ItemOrcamentoValor item)
+        // {
+        //     item.Id = Guid.NewGuid();
+        //     throw new NotImplementedException();
+        //     //await _dbContext.ItensOrcamentoValores.AddAsync(item);
+        // }
 
-        public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItem)
-        {
-            throw new NotImplementedException();
-            //return await _dbContext.ItensOrcamentoValores.AsNoTracking().Where(iov => iov.CodigoItemOrcamento == codigoItem).ToListAsync();
-        }
+        // public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItem)
+        // {
+        //     throw new NotImplementedException();
+        //     //return await _dbContext.ItensOrcamentoValores.AsNoTracking().Where(iov => iov.CodigoItemOrcamento == codigoItem).ToListAsync();
+        // }
 
         public async Task<ItemOrcamento?> GetItemOrcamentoEValores(Guid codigoItem)
         {

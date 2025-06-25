@@ -61,48 +61,48 @@ namespace CashFlow.Api.Controllers
             return Ok(await _service.GetById(id));
         }
 
-        [HttpPost]
-        [Route("itens")]
-        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddItem(
-            [FromBody] ItemOrcamento request,
-            [FromServices] IItensOrcamentoService service)
-        {
-            var valores = await service.Create(request);
+        // [HttpPost]
+        // [Route("itens")]
+        // [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        // public async Task<IActionResult> AddItem(
+        //     [FromBody] ItemOrcamento request,
+        //     [FromServices] IItensOrcamentoService service)
+        // {
+        //     var valores = await service.Create(request);
 
-            return Created("", valores);
-        }
+        //     return Created("", valores);
+        // }
 
-        [HttpGet]
-        [Route("{id}/itens")]
-        [ProducesResponseType(typeof(List<ItemOrcamento>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetItens(
-            [FromRoute] Guid id,
-            [FromServices] IItensOrcamentoService service)
-        {
-            return Ok(await service.GetItens(id));
-        }
+        // [HttpGet]
+        // [Route("{id}/itens")]
+        // [ProducesResponseType(typeof(List<ItemOrcamento>), StatusCodes.Status200OK)]
+        // public async Task<IActionResult> GetItens(
+        //     [FromRoute] Guid id,
+        //     [FromServices] IItensOrcamentoService service)
+        // {
+        //     return Ok(await service.GetItens(id));
+        // }
 
-        [HttpGet]
-        [Route("itens/{id}/valores")]
-        [ProducesResponseType(typeof(List<ItemOrcamentoValor>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetValoresItemOrcamento(
-            [FromRoute] Guid id,
-            [FromServices] IItensOrcamentoService service)
-        {
-            return Ok(await service.GetValoresItemOrcamento(id));
-        }
+        // [HttpGet]
+        // [Route("itens/{id}/valores")]
+        // [ProducesResponseType(typeof(List<ItemOrcamentoValor>), StatusCodes.Status200OK)]
+        // public async Task<IActionResult> GetValoresItemOrcamento(
+        //     [FromRoute] Guid id,
+        //     [FromServices] IItensOrcamentoService service)
+        // {
+        //     return Ok(await service.GetValoresItemOrcamento(id));
+        // }
 
-        [HttpPut]
-        [Route("{id}/itens")]
-        public async Task<IActionResult> UpdateItemOrcamento(
-            [FromRoute] Guid id,
-            [FromBody] UpdateItemOrcamentoRequest request,
-            [FromServices] IItensOrcamentoService service)
-        {
-            await service.UpdateItemOrcamento(id, request);
+        // [HttpPut]
+        // [Route("{id}/itens")]
+        // public async Task<IActionResult> UpdateItemOrcamento(
+        //     [FromRoute] Guid id,
+        //     [FromBody] UpdateItemOrcamentoRequest request,
+        //     [FromServices] IItensOrcamentoService service)
+        // {
+        //     await service.UpdateItemOrcamento(id, request);
 
-            return Ok();
-        }
+        //     return Ok();
+        // }
     }
 }

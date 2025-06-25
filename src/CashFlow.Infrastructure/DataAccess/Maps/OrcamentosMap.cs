@@ -16,11 +16,49 @@ namespace CashFlow.Infrastructure.DataAccess.Maps
                 .HasColumnName("CodigoOrcamento")
                 .ValueGeneratedNever();
 
-            builder.Property(x => x.Emissao);
-            builder.Property(x => x.Validade);
-            builder.Property(x => x.ValorTotal);
-            builder.Property(x => x.CodigoCliente);
-            builder.Property(x => x.Descricao);
+            builder.Property(x => x.Validade)
+                .HasColumnName("Validade")
+                .HasColumnType("timestamp")
+                .IsRequired();
+
+            builder.Property(x => x.Emissao)
+                .HasColumnName("Emissao")
+                .HasColumnType("timestamp")
+                .IsRequired();
+
+            builder.Property(x => x.ValorTotal)
+                .HasColumnName("ValorTotal")
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            builder.Property(x => x.Descricao)
+                .HasColumnName("Descricao")
+                .HasMaxLength(500)
+                .IsRequired();
+
+            builder.Property(x => x.Observacao)
+                .HasColumnName("Observacao")
+                .HasMaxLength(1000)
+                .IsRequired(false);
+
+            builder.Property(x => x.Status)
+                .HasColumnName("Status")
+                .HasConversion<int>()
+                .IsRequired();
+
+            builder.Property(x => x.CodigoAutor)
+                .HasColumnName("CodigoAutor")
+                .IsRequired();
+
+            builder.Property(x => x.CodigoCliente)
+                .HasColumnName("CodigoCliente")
+                .IsRequired();
+
+            // Configuração do relacionamento com ItemOrcamento
+            builder.HasMany(x => x.Itens)
+                .WithOne()
+                .HasForeignKey("CodigoOrcamento")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

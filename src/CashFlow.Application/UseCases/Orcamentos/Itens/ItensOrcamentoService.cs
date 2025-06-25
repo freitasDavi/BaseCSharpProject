@@ -21,80 +21,80 @@ namespace CashFlow.Application.UseCases.Orcamentos.Itens
             _unitOfWork = unitOfWork;
             _pecasRepository = pecasRepository;
         }
-        public async Task<List<ItemOrcamentoValor>> Create(ItemOrcamento request)
-        {
-            _unitOfWork.BeginTransaction();
+        // public async Task<List<ItemOrcamentoValor>> Create(ItemOrcamento request)
+        // {
+        //     _unitOfWork.BeginTransaction();
 
-            await _repository.Create(request);
+        //     await _repository.Create(request);
 
-            var pecas = await _pecasRepository.GetValoresPeca(request.CodigoPeca);
+        //     var pecas = await _pecasRepository.GetValoresPeca(request.CodigoPeca);
 
-           List<ItemOrcamentoValor> itensOrcamento = [];
+        //    List<ItemOrcamentoValor> itensOrcamento = [];
 
-            if (pecas.Any())
-            {
-                itensOrcamento = pecas.Select(p => new ItemOrcamentoValor
-                {
-                    CodigoItemOrcamento = request.Id,
-                    Nome = p.Nome,
-                    Valor = p.Valor
-                }).ToList();
+        //     if (pecas.Any())
+        //     {
+        //         itensOrcamento = pecas.Select(p => new ItemOrcamentoValor
+        //         {
+        //             CodigoItemOrcamento = request.Id,
+        //             Nome = p.Nome,
+        //             Valor = p.Valor
+        //         }).ToList();
 
-                itensOrcamento.ForEach(async io => await _repository.SalvarItensValores(io));
-            }
+        //         itensOrcamento.ForEach(async io => await _repository.SalvarItensValores(io));
+        //     }
 
-            await _unitOfWork.Commit();
+        //     await _unitOfWork.Commit();
 
-            return itensOrcamento;
-        }
+        //     return itensOrcamento;
+        // }
 
-        public async Task<List<ItemOrcamento>> GetItens(Guid codigoOrcamento)
-        {
-            return await _repository.GetItens(codigoOrcamento);
-        }
+        // public async Task<List<ItemOrcamento>> GetItens(Guid codigoOrcamento)
+        // {
+        //     return await _repository.GetItens(codigoOrcamento);
+        // }
 
-        public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItemOrcamento)
-        {
-            return await _repository.GetValoresItemOrcamento(codigoItemOrcamento);
-        }
+        // public async Task<List<ItemOrcamentoValor>> GetValoresItemOrcamento(Guid codigoItemOrcamento)
+        // {
+        //     return await _repository.GetValoresItemOrcamento(codigoItemOrcamento);
+        // }
 
-        public async Task UpdateItemOrcamento(Guid id, UpdateItemOrcamentoRequest request)
-        {
-            _unitOfWork.BeginTransaction();
+        // public async Task UpdateItemOrcamento(Guid id, UpdateItemOrcamentoRequest request)
+        // {
+        //     _unitOfWork.BeginTransaction();
 
-            var item = await _repository.GetItemOrcamentoEValores(id);
+        //     var item = await _repository.GetItemOrcamentoEValores(id);
 
-            if (item == null)
-            {
-                throw new NotFoundException("");
-            }
+        //     if (item == null)
+        //     {
+        //         throw new NotFoundException("");
+        //     }
 
-            await _repository.RemoveItemsParaInsercao(id);
+        //     await _repository.RemoveItemsParaInsercao(id);
 
-            var valores = MapearItemValorParaEdicao(request.Valores);
+        //     var valores = MapearItemValorParaEdicao(request.Valores);
 
-            item.Descricao = request.ItemOrcamento.Descricao;
-            item.Nome = request.ItemOrcamento.Nome;
-            item.Quantidade = request.ItemOrcamento.Quantidade;
-            item.ValorTotal = request.ItemOrcamento.ValorTotal;
+        //     item.Descricao = request.ItemOrcamento.Descricao;
+        //     item.Nome = request.ItemOrcamento.Nome;
+        //     item.Quantidade = request.ItemOrcamento.Quantidade;
+        //     item.ValorTotal = request.ItemOrcamento.ValorTotal;
 
-            _repository.UpdateItemOrcamento(item);
-            await _repository.SalvarItensValores(valores);
+        //     _repository.UpdateItemOrcamento(item);
+        //     await _repository.SalvarItensValores(valores);
 
-            await _unitOfWork.Commit();
-        }
+        //     await _unitOfWork.Commit();
+        // }
 
-        private List<ItemOrcamentoValor> MapearItemValorParaEdicao(List<UpdateItemOrcamentoValorRequest> valores)
-        {
-            List<ItemOrcamentoValor> items = valores.Select(vl => new ItemOrcamentoValor
-            {
-                CodigoItemOrcamento = vl.CodigoItemOrcamento,
-                Id = vl.Id,
-                Nome = vl.Nome,
-                Valor = vl.Valor,
-            }).ToList();
+        // private List<ItemOrcamentoValor> MapearItemValorParaEdicao(List<UpdateItemOrcamentoValorRequest> valores)
+        // {
+        //     List<ItemOrcamentoValor> items = valores.Select(vl => new ItemOrcamentoValor
+        //     {
+        //         CodigoItemOrcamento = vl.CodigoItemOrcamento,
+        //         Id = vl.Id,
+        //         Nome = vl.Nome,
+        //         Valor = vl.Valor,
+        //     }).ToList();
 
-            return items;
-        }
+        //     return items;
+        // }
     }
 }

@@ -6,7 +6,7 @@ namespace CashFlow.Infrastructure.DataAccess
     internal class UnityOfWork : IUnitOfWork
     {
         private readonly CashFlowDbContext _dbContext;
-        private IDbContextTransaction _transaction;
+        private IDbContextTransaction? _transaction;
         public UnityOfWork(CashFlowDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -14,7 +14,7 @@ namespace CashFlow.Infrastructure.DataAccess
 
         public void BeginTransaction()
         {
-            _transaction = _dbContext.Database.BeginTransaction(); 
+            _transaction = _dbContext.Database.BeginTransaction();
         }
         public async Task Commit()
         {
@@ -22,13 +22,15 @@ namespace CashFlow.Infrastructure.DataAccess
             {
                 await _dbContext.SaveChangesAsync();
                 _transaction?.Commit();
-            } catch
+            }
+            catch
             {
                 _transaction?.Rollback();
                 throw;
-            } finally
+            }
+            finally
             {
-                _transaction?.Dispose();   
+                _transaction?.Dispose();
             }
         }
     }

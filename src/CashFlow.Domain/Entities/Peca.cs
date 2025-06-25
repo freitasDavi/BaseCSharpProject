@@ -6,6 +6,7 @@ namespace CashFlow.Domain.Entities
     {
         public EnumTamanhoPeca TamanhoPeca { get; set; }
         public string Descricao { get; set; } = string.Empty;
-        public decimal Porcentagem { get; set; }    
+        public decimal Porcentagem { get; set; }
+        public decimal Valor { get; set; }
     }
 }
